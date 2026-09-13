@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panoul Lidiei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF4EF;
+    --ink: #2A2130;
+    --ink-soft: #6E6270;
+    --line: #E7DDD3;
+    --card-shadow: rgba(42, 33, 48, 0.06);
+
+    --patreon: #7A2E43;
+    --patreon-tint: #F7ECEE;
+    --patreon-tint-strong: #EFD9DD;
+
+    --shopify: #B5502C;
+    --shopify-tint: #F7ECE4;
+    --shopify-tint-strong: #EFD7C6;
+
+    --sme: #2F5D62;
+    --sme-tint: #EBF2F1;
+    --sme-tint-strong: #D5E5E3;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    min-height: 100vh;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+  }
+
+  .greeting h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 40px;
+    margin: 0 0 6px;
+    line-height: 1.1;
+  }
+
+  .greeting p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .overall {
+    text-align: right;
+  }
+
+  .overall .num {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .overall .label {
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  @media (max-width: 900px) {
+    .board { grid-template-columns: 1fr; }
+    header { align-items: flex-start; }
+    .overall { text-align: left; }
+  }
+
+  .col {
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    min-height: 320px;
+  }
+
+  .col-patreon { background: var(--patreon-tint); }
+  .col-shopify { background: var(--shopify-tint); }
+  .col-sme     { background: var(--sme-tint); }
+
+  .col-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .col-head h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    margin: 0;
+  }
+
+  .col-patreon h2 { color: var(--patreon); }
+  .col-shopify h2 { color: var(--shopify); }
+  .col-sme h2     { color: var(--sme); }
+
+  .col-count {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .col-sub {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+
+  .progress-track {
+    height: 5px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.06);
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.35s ease;
+  }
+  .col-patreon .progress-fill { background: var(--patreon); }
+  .col-shopify .progress-fill { background: var(--shopify); }
+  .col-sme .progress-fill     { background: var(--sme); }
+
+  .add-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .add-row input {
+    flex: 1;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 10px;
+    padding: 9px 12px;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+  }
+  .add-row input:focus {
+    border-color: currentColor;
+  }
+  .col-patreon .add-row input:focus { border-color: var(--patreon); }
+  .col-shopify .add-row input:focus { border-color: var(--shopify); }
+  .col-sme .add-row input:focus     { border-color: var(--sme); }
+
+  .add-row button {
+    border: none;
+    border-radius: 10px;
+    width: 38px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Work Sans', sans-serif;
+  }
+  .col-patreon .add-row button { background: var(--patreon); }
+  .col-shopify .add-row button { background: var(--shopify); }
+  .col-sme .add-row button     { background: var(--sme); }
+
+  ul.tasks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,255,255,0.55);
+    border-radius: 10px;
+    padding: 10px 10px 10px 12px;
+  }
+
+  .task.done {
+    opacity: 0.55;
+  }
+
+  .task .check {
+    margin-top: 2px;
+    width: 17px;
+    height: 17px;
+    border-radius: 5px;
+    border: 1.5px solid currentColor;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+  }
+  .col-patreon .check { color: var(--patreon); }
+  .col-shopify .check { color: var(--shopify); }
+  .col-sme .check     { color: var(--sme); }
+
+  .task.done .check { background: currentColor; }
+  .task.done .check::after {
+    content: '';
+    width: 8px;
+    height: 5px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(0, -1px);
+  }
+
+  .task .text {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+    cursor: default;
+  }
+  .task.done .text {
+    text-decoration: line-through;
+  }
+
+  .task .del {
+    border: none;
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+  .task .del:hover { color: var(--ink); }
+
+  .empty {
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    padding: 8px 2px;
+  }
+
+  .status-note {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+    margin-top: 36px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="greeting">
+      <h1>Bună, Lidia</h1>
+      <p id="dateLine"></p>
+    </div>
+    <div class="overall">
+      <div class="num" id="overallNum">0/0</div>
+      <div class="label">sarcini terminate azi</div>
+    </div>
+  </header>
+
+  <div class="board">
+    <div class="col col-patreon" data-key="patreon">
+      <div class="col-head">
+        <h2>Patreon</h2>
+        <span class="col-count" data-count></span>
+      </div>
+      <div class="col-sub">Conținut &amp; capitole</div>
+      <div class="progress-track"><div class="progress-fill" data-fill style="width:0%"></div></div>
+      <form class="add-row" data-form>
+        <input type="text" placeholder="Adaugă o sarcină..." data-input maxlength="140">
+        <button type="submit">+</button>
+      </form>
+      <ul class="tasks" data-list></ul>
+    </div>
+
+    <div class="col col-shopify" data-key="shopify">
+      <div class="col-head">
+        <h2>Shopify</h2>
+        <span class="col-count" data-count></span>
+      </div>
+      <div class="col-sub">Produse &amp; magazin</div>
+      <div class="progress-track"><div class="progress-fill" data-fill style="width:0%"></div></div>
+      <form class="add-row" data-form>
+        <input type="text" placeholder="Adaugă o sarcină..." data-input maxlength="140">
+        <button type="submit">+</button>
+      </form>
+      <ul class="tasks" data-list></ul>
+    </div>
+
+    <div class="col col-sme" data-key="sme">
+      <div class="col-head">
+        <h2>SME Careers</h2>
+        <span class="col-count" data-count></span>
+      </div>
+      <div class="col-sub">Task-uri primite</div>
+      <div class="progress-track"><div class="progress-fill" data-fill style="width:0%"></div></div>
+      <form class="add-row" data-form>
+        <input type="text" placeholder="Adaugă o sarcină..." data-input maxlength="140">
+        <button type="submit">+</button>
+      </form>
+      <ul class="tasks" data-list></ul>
+    </div>
+  </div>
+
+  <p class="status-note" id="statusNote">Se încarcă...</p>
+</div>
+
+<script>
+  const CATEGORIES = ['patreon', 'shopify', 'sme'];
+  const state = { patreon: [], shopify: [], sme: [] };
+
+  const dateLine = document.getElementById('dateLine');
+  const overallNum = document.getElementById('overallNum');
+  const statusNote = document.getElementById('statusNote');
+
+  dateLine.textContent = new Date().toLocaleDateString('ro-RO', {
+    weekday: 'long', day: 'numeric', month: 'long'
+  });
+
+  function uid() {
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
+
+  async function loadAll() {
+    for (const key of CATEGORIES) {
+      try {
+        const res = await window.storage.get('tasks:' + key, false);
+        state[key] = res && res.value ? JSON.parse(res.value) : [];
+      } catch (e) {
+        state[key] = [];
+      }
+    }
+    renderAll();
+    statusNote.textContent = 'Notițele tale sunt salvate automat.';
+  }
+
+  async function save(key) {
+    try {
+      const result = await window.storage.set('tasks:' + key, JSON.stringify(state[key]), false);
+      if (!result) {
+        statusNote.textContent = 'Nu am putut salva ultima modificare — încearcă din nou.';
+      } else {
+        statusNote.textContent = 'Notițele tale sunt salvate automat.';
+      }
+    } catch (e) {
+      statusNote.textContent = 'Nu am putut salva ultima modificare — încearcă din nou.';
+    }
+  }
+
+  function renderColumn(key) {
+    const col = document.querySelector(`.col[data-key="${key}"]`);
+    const list = col.querySelector('[data-list]');
+    const count = col.querySelector('[data-count]');
+    const fill = col.querySelector('[data-fill]');
+    const tasks = state[key];
+
+    list.innerHTML = '';
+    if (tasks.length === 0) {
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = 'Nimic încă — adaugă prima sarcină.';
+      list.appendChild(li);
+    } else {
+      const sorted = [...tasks].sort((a, b) => (a.done === b.done) ? 0 : a.done ? 1 : -1);
+      sorted.forEach(task => {
+        const li = document.createElement('li');
+        li.className = 'task' + (task.done ? ' done' : '');
+
+        const check = document.createElement('button');
+        check.className = 'check';
+        check.type = 'button';
+        check.setAttribute('aria-label', task.done ? 'Marchează ca nefăcut' : 'Marchează ca făcut');
+        check.addEventListener('click', () => toggleTask(key, task.id));
+
+        const text = document.createElement('span');
+        text.className = 'text';
+        text.textContent = task.text;
+
+        const del = document.createElement('button');
+        del.className = 'del';
+        del.type = 'button';
+        del.innerHTML = '&times;';
+        del.setAttribute('aria-label', 'Șterge');
+        del.addEventListener('click', () => deleteTask(key, task.id));
+
+        li.appendChild(check);
+        li.appendChild(text);
+        li.appendChild(del);
+        list.appendChild(li);
+      });
+    }
+
+    const doneCount = tasks.filter(t => t.done).length;
+    count.textContent = tasks.length ? `${doneCount}/${tasks.length}` : '';
+    const pct = tasks.length ? Math.round((doneCount / tasks.length) * 100) : 0;
+    fill.style.width = pct + '%';
+  }
+
+  function renderOverall() {
+    let done = 0, total = 0;
+    CATEGORIES.forEach(key => {
+      done += state[key].filter(t => t.done).length;
+      total += state[key].length;
+    });
+    overallNum.textContent = `${done}/${total}`;
+  }
+
+  function renderAll() {
+    CATEGORIES.forEach(renderColumn);
+    renderOverall();
+  }
+
+  function toggleTask(key, id) {
+    const task = state[key].find(t => t.id === id);
+    if (task) {
+      task.done = !task.done;
+      renderAll();
+      save(key);
+    }
+  }
+
+  function deleteTask(key, id) {
+    state[key] = state[key].filter(t => t.id !== id);
+    renderAll();
+    save(key);
+  }
+
+  function addTask(key, text) {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    state[key].push({ id: uid(), text: trimmed, done: false, createdAt: Date.now() });
+    renderAll();
+    save(key);
+  }
+
+  document.querySelectorAll('[data-form]').forEach(form => {
+    const key = form.closest('.col').dataset.key;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('[data-input]');
+      addTask(key, input.value);
+      input.value = '';
+      input.focus();
+    });
+  });
+
+  loadAll();
+</script>
+</body>
+</html>
